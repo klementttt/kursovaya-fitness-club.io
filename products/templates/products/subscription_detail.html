@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ subscription.name }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {% if subscription.image %}
+            <img src="{{ subscription.image.url }}" class="img-fluid" alt="{{ subscription.name }}">
+            {% else %}
+            <img src="{% if subscription.image %}{{ subscription.image.url }}{% else %}{% static 'images/default_product_image.jpg' %}{% endif %}" alt="{{ subscription.name }}">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p>{{ subscription.description }}</p>
+            <p>Цена: {{ subscription.price }} руб.</p>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' subscription.id %}" class="btn btn-primary">Добавить в корзину</a>
+            {% else %}
+            <a href="{% url 'login' %}?next={% url 'add_to_cart' subscription.id %}" class="btn btn-primary">Войти для добавления в корзину</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

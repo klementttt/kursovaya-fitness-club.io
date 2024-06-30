@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Абонементы</h2>
+    <div class="row">
+        {% for subscription in subscriptions %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if subscription.image %}
+                <img src="{{ subscription.image.url }}" class="card-img-top" alt="{{ subscription.name }}">
+                {% else %}
+                <img src="{% static 'images/default_product_image.jpg' %}" alt="{{ subscription.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'subscription_detail' subscription.id %}">{{ subscription.name }}</a></h5>
+                    <p class="card-text">Цена: {{ subscription.price }} руб.</p>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_to_cart' subscription.id %}" class="btn btn-primary">Добавить в корзину</a>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={% url 'add_to_cart' subscription.id %}" class="btn btn-primary">Войти для добавления в корзину</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2>Тренеры</h2>
+    <div class="row">
+        {% for trainer in trainers %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if trainer.image %}
+                <img src="{{ trainer.image.url }}" class="card-img-top" alt="{{ trainer.name }}">
+                {% else %}
+                <img src="{% static 'images/default_trainer_image.jpg' %}" alt="{{ trainer.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ trainer.name }}</h5>
+                    <p class="card-text">Специализация: {{ trainer.specialization }}</p>
+                    <p class="card-text">Цена: {{ trainer.price }} руб.</p>
+                    <a href="{% url 'book_trainer' trainer.id %}" class="btn btn-primary">Забронировать</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

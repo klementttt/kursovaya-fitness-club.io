@@ -1,0 +1,37 @@
+<!-- templates/products/cart.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Корзина</h1>
+    <div class="row">
+        <div class="col-md-8">
+            {% if subscriptions or bookings %}
+            <ul class="list-group mb-4">
+                <h2>Абонементы</h2>
+                {% for subscription in subscriptions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ subscription.name }} - {{ subscription.price }} руб.
+                    <a href="{% url 'remove_from_cart' subscription.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                </li>
+                {% endfor %}
+                
+                <h2>Занятия с тренером</h2>
+                {% for booking in bookings %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ booking.trainer.name }} - {{ booking.date }}
+                    <a href="{% url 'remove_booking_from_cart' booking.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <h4>Итого: {{ total_price }} руб.</h4>
+            <a href="{% url 'checkout' %}" class="btn btn-success">Оформить заказ</a>
+            {% else %}
+            <p>Ваша корзина пуста.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,67 @@
+<!-- products/templates/products/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h1>Fitness Club</h1>
+    <p>Фитнес клубы в России</p>
+    <div class="row mt-4">
+        <div class="col">
+            <h3>15</h3>
+            <p>городов в России</p>
+        </div>
+        <div class="col">
+            <h3>25+</h3>
+            <p>групповых направлений</p>
+        </div>
+        <div class="col">
+            <h3>74</h3>
+            <p>клуба федеральной сети</p>
+        </div>
+        <div class="col">
+            <h3>3</h3>
+            <p>клуба премиум-класса</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 text-center">
+    <h2>Заказать обратный звонок</h2>
+    <form method="post" action="{% url 'callback_request' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Введите имя">
+        </div>
+        <div class="form-group">
+            <input type="tel" class="form-control" name="phone" placeholder="Введите номер телефона">
+        </div>
+        <button type="submit" class="btn btn-primary">Заказать</button>
+    </form>
+</div>
+
+<div class="mt-4">
+    <h2>Лучшие тренеры</h2>
+    <div id="bestTrainersCarousel" class="carousel slide small-carousel" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for trainer in best_trainers %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ trainer.image.url }}" class="d-block w-100 trainer-image" alt="{{ trainer.name }}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ trainer.name }}</h5>
+                    <p>{{ trainer.specialization }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#bestTrainersCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#bestTrainersCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

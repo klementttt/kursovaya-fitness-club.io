@@ -1,0 +1,40 @@
+/* products/static/css/style.css */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.jumbotron {
+  background-color: #f8f9fa;
+  padding: 0;
+}
+
+.card-header {
+  background-color: #343a40;
+  color: white;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  margin-right: 10px;
+}
+
+.nav-link.btn {
+  padding: 5px 20px;
+}
+
+.nav-item:last-child .nav-link {
+  margin-right: 0;
+}

@@ -1,0 +1,30 @@
+<!-- templates/products/about.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-5">Мы гарантируем качество занятий ,с нашими тренерами</h1>
+    <h2 class="text-center mb-5">Лучшие тренера клуба</h2>
+    <div class="row">
+        {% for trainer in favorit_trainers %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    {% if trainer.image %}
+                        <img src="{{ trainer.image.url }}" class="card-img-top" alt="{{ trainer.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default_trainer_image.jpg' %}" class="card-img-top" alt="Default Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ trainer.name }}</h5>
+                        <p class="card-text"><strong>Специализация:</strong> {{ trainer.specialization }}</p>
+                        <p class="card-text"><strong>Опыт:</strong> {{ trainer.experience }} лет</p>
+                        <a href="{% url 'book_trainer' trainer.pk %}" class="btn btn-primary">Забронировать тренера</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
