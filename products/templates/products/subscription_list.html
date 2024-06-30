@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Абонементы</h1>
+<ul>
+    {% for subscription in subscriptions %}
+    <li>
+        <h2>{{ subscription.name }}</h2>
+        <p>{{ subscription.price }}</p>
+        <a href="{% url 'buy_subscription' subscription.id %}">Купить</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

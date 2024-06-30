@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ trainer.name }}</h1>
+    <p>{{ trainer.description }}</p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'book_trainer' trainer.id %}" class="btn btn-primary">Забронировать тренера</a>
+    {% else %}
+    <a href="{% url 'login' %}?next={% url 'book_trainer' trainer.id %}" class="btn btn-primary">Войти для бронирования тренера</a>
+    {% endif %}
+</div>
+{% endblock %}
